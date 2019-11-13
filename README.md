@@ -2,7 +2,7 @@
 
 ### Install python and pip before modules
 
-- pip install requirements.txt
+- pip install -r requirements.txt
 
 ### Check installation
 - pip freeze
