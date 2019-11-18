@@ -7,25 +7,80 @@ from django.core.mail import send_mail
 from .validations import validate_birthday
 from locations.models import Country, City
 from lessons.models import Lesson
-from languages.model import Language
+from languages.model import Language, LearningLanguage
 import pytz
 
 
 def get_user_photo_path(instance, filename):
-    return "photos/{0}/{1}".format(instance.username, filename) #!!!!!!!
+    return "photos/{0}/{1}".format(instance.username, filename)
+
+
+class UserManager(BaseUserManager):
+    use_in_migrations = True
+
+    def _create_user(
+            self, email, username, birthday,
+            password, **extra_fields):
+
+        if not email:
+            raise ValueError("The given email must be set")
+        if not username:
+            raise ValueError("The given username must be set")
+        if not birthday:
+            raise ValueError("The given birthday must be set")
+       
+
+        email = self.normalize_email(email)
+        username = self.model.normalize_username(username)
+        user = self.model(
+            email=email,
+            username=username,
+            birthday=birthday,
+            **extra_fields
+        )
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_user(self, email, username,  birthday,
+                    password=None, **extra_fields):
+
+        extra_fields.setdefault("is_teacher", False)
+        extra_fields.setdefault("is_staff", False)
+        extra_fields.setdefault("is_superuser", False)
+        return self._create_user(
+            email, username, birthday, password, **extra_fields
+        )
+
+    def create_superuser(self, email, username, birthday, password,
+                        **extra_fields):
+        extra_fields.setdefault("is_staff", True)
+        extra_fields.setdefault("is_superuser", True)
+        if extra_fields.get("is_staff") is not True:
+            raise ValueError("Superuser must have is_staff=True.")
+        if extra_fields.get("is_superuser") is not True:
+            raise ValueError("Superuser must have is_superuser=True.")
+
+        return self._create_user(
+            email, username, birthday, password,
+            **extra_fields
+        )
 
 
 class CommunicationTool(models.Model):
     name_tool = models.CharField(max_length=20, blank=True)
     address_tool = models.CharField(max_length=20, blank=True)
 
-class User(AbstractBaseUser, PermissionsMixin):
-    teacher_profile = models.BooleanField(default=False)
-    student_profile = models.BooleanField(default=False)
-    login = models.CharField(max_length=20)
-    password = models.CharField(max_length=20)
-    email = models.EmailField(unique=True)
 
+class User(AbstractBaseUser, PermissionsMixin):
+
+    GENDER_CHOICES = (
+        ('M', 'Male'),
+        ('F', 'Female'),
+    )
+    
+    email = models.EmailField(unique=True)
+    
     username = models.CharField(
         db_index=True,
         max_length=50,
@@ -35,11 +90,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     date_of_birth = models.DateField(
         validators=[validate_birthday],
         blank=True
-    )
-
-    GENDER_CHOICES = (
-        ('M', 'Male'),
-        ('F', 'Female'),
     )
 
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, blank=True)
@@ -53,11 +103,16 @@ class User(AbstractBaseUser, PermissionsMixin):
     photo = models.ImageField(upload_to=get_user_photo_path, null=True, blank=True)
     communication_tool = models.ManyToManyField(CommunicationTool)
     introduction = models.TextField(blank=True)
-    language = models.ManyToManyField(Language) #Language is a model
+    native_languages = models.ManyToManyField(Language)
+    learning_languages = models.ManyToManyField(LearningLanguage)
+    is_teacher = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
+    objects = UserManager()
+    last_visit = models.DateTimeField(
+        default=datetime.datetime.now)
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username",]
-
 
     def __str__(self):
         return self.username
@@ -70,50 +125,15 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def get_location(self):
         pass
-
-class Student(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='student_profile')
-    user.student_profile = True
-    skills = models.CharField(max_length=10, blank=True)
-    progress = models.IntegerField(default=0)
-    #course = models.ManyToManyField(Course) #Course is a model
-    TARGET_CHOICES = (
-        ('Learning','Learning'),
-        ('Speaking','Speaking'),
-    )
-    target = models.CharField(max_length=8, choices=TARGET_CHOICES)
-    #community_updates = models.OneToOneField(CommunityUpdates, on_delete=models.CASCADE)
+    
 
 class Teacher(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='teacher_profile')
-    user.teacher_profile = True
-    specialization = models.CharField(max_length=20, blank=True)
-    skills = models.CharField(max_length=10, blank=True)
     video = models.URLField(blank=True)
-    #calendar = models.OneToOneField(Calendar) # Calendar is a model
-    lessons = models.ForeignKey(Lesson, on_delete = models.CASCADE) # Lesson is a model
-
-
-#class CommunityUpdates(models.Model):
-#    notebook_entries = 
-#    questions = 
-#    discussions = 
-#    friends = 
-#    points = 
 
 
 @receiver(post_save, sender=User)
 def create_user(sedner, instance, created, **kwargs):
     if created:
-        if instance.student_profile:
-           Student.objects.create(user=instance)
-        elif instance.teacher_profile:
+        if instance.is_teacher:
             Teacher.objects.create(user=instance)
-
-@receiver(post_save, sender=User)
-def save_user(sender, instance, **kwargs):
-    if instance.student_profile:
-        instance.student.save()
-    elif instance.teacher_profile:
-        instance.teacher.save()
-
