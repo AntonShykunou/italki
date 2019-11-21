@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'users',
     'locations',
     'lessons',
-    'languages'
+    'languages',
+    'feedbacks',
 ]
 
 MIDDLEWARE = [
