@@ -8,7 +8,7 @@ CHOICES_SKILLS = (
     ("b1", "Intermediate"),
     ("b2", "Upper Intermediate"),
     ("c1", "Advanced"),
-    ("c2", "PRoficient"),
+    ("c2", "Proficient"),
 )
 
 CHOISES_LANGUAGES = (
