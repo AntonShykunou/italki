@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'languages',
     'rest_framework',
     'djoser',    
+    'feedbacks',
 ]
 
 REST_FRAMEWORK = {
