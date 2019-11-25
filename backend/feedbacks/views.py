@@ -6,10 +6,12 @@ from .serializer import FeedbackSerializer
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.permissions import IsAdminUser
 
+
 class FeedbackListView(ListCreateAPIView):
     queryset = Feedback.objects.all()
     serializer_class = FeedbackSerializer
     #permission_classes = [IsAdminUser]
+
 
 class FeedbackDetailView(RetrieveUpdateDestroyAPIView):
     queryset = Feedback.objects.all()
