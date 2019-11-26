@@ -25,6 +25,7 @@ apipatterns = [
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('auth/', include('djoser.urls')),
+    path('auth/', include('djoser.urls.jwt')),
     path('api/', include((apipatterns, 'api'), namespace='api'))
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
-
