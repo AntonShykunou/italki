@@ -21,10 +21,10 @@ from django.conf import settings
 apipatterns = [
     path('', include('languages.urls')),
     path('', include('feedbacks.urls')),
+    path('', include('users.urls'))
 ]
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include((apipatterns, 'api'), namespace='api')),
-    path('users/', include('users.urls'))
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

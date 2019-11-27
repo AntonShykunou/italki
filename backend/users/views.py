@@ -7,13 +7,6 @@ from rest_framework.response import Response
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
-    serializer_classes = {
-        'list': UserSerializer,
-        'get': UserSerializer,
-        'create': UserCreateSerializer,
-        'update': UserSerializer
-    }
-
     
     def get_serializer_class(self):
         if self.action == 'create':
