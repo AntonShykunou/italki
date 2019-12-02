@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'djoser',    
     'feedbacks',
+    'articles',
+    'likes',
 ]
 
 REST_FRAMEWORK = {

@@ -141,3 +141,6 @@ def create_user(sender, instance, created, **kwargs):
     if created:
         if instance.is_teacher:
             Teacher.objects.create(user=instance)
+
+
+
