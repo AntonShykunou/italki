@@ -21,6 +21,7 @@ from django.conf import settings
 apipatterns = [
     path('', include('languages.urls')),
     path('', include('feedbacks.urls')),
+    path('', include('articles.urls')),
 ]
 
 urlpatterns = [
@@ -29,3 +30,4 @@ urlpatterns = [
     path('auth/', include('djoser.urls.jwt')),
     path('api/', include((apipatterns, 'api'), namespace='api'))
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+
