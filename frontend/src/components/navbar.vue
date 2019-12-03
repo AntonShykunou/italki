@@ -69,6 +69,7 @@
     <why/>
     <guide/>
     <feedbacks/>
+    <started/>
   </div>
 </template>
 
@@ -78,7 +79,8 @@ import teachercards from "./teachercards";
 import loader from "./loader";
 import why from "./why_us";
 import guide from "./guide";
-import feedbacks from "./feedbacks"
+import feedbacks from "./feedbacks";
+import started from "./get_started";
 
 import {
   mdbContainer,
@@ -113,7 +115,8 @@ export default {
     teachercards,
     why,
     guide,
-    feedbacks
+    feedbacks,
+    started
   },
   data() {
     return {
