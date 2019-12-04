@@ -1,6 +1,6 @@
 <template>
   <div>
-    <mdb-navbar dark class="navbar" position="top" style="width:100%;">
+    <mdb-navbar dark class="navbar" position="top" style="width:100%;" scrolling>
       <a class="navbar-brand" href="#">
         <img src="../assets/logo.png" width="100" height="60" alt="mdb logo" />
       </a>
@@ -70,6 +70,7 @@
     <guide/>
     <feedbacks/>
     <started/>
+    <foot/>
   </div>
 </template>
 
@@ -81,6 +82,8 @@ import why from "./why_us";
 import guide from "./guide";
 import feedbacks from "./feedbacks";
 import started from "./get_started";
+import foot from "./footer";
+
 
 import {
   mdbContainer,
@@ -116,7 +119,8 @@ export default {
     why,
     guide,
     feedbacks,
-    started
+    started,
+    foot
   },
   data() {
     return {

@@ -38,6 +38,7 @@ export default {
   position: relative;
   z-index: 100;
   background-image: url(../assets/girls.jpg);
+  margin: 0;
 }
 .white {
   position: absolute;
