@@ -5,7 +5,8 @@ from .serializers import ArticleSerializer
 from likes.mixins import LikedMixin
 
 
+
 class ArticleViewSet(LikedMixin,viewsets.ModelViewSet):
-    queryset = Article.objects.all()
+    queryset = Article.objects.filter(is_published=True)
     serializer_class = ArticleSerializer
     permission_classes = (IsAuthenticatedOrReadOnly, )

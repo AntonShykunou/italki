@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     'feedbacks',
     'articles',
     'likes',
-    'hitcount',
 ]
 
 REST_FRAMEWORK = {
