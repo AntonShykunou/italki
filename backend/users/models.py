@@ -7,7 +7,6 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.core.mail import send_mail
 from .validations import validate_birthday
 from locations.models import Country, City
-from lessons.models import Lesson
 from languages.models import Language, LearningLanguage
 import pytz
 
