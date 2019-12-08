@@ -18,10 +18,13 @@ class Lesson(models.Model):
         return self.title
 
 
-class LessonSession():
+class LessonSession(models.Model):
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, related_name='lesson')
     student = models.ForeignKey(User, on_delete=models.CASCADE, related_name='student')
-    status = models.CharField(choices=CHOISES_STATUSE, default='0')
+    status = models.CharField(max_length=1, choices=CHOISES_STATUSE, default='0')
+
+    def __str__(self):
+        return '{0}_session'.format(self.lesson.title)
 
     def Meta():
         verbose_name = 'LessonSession'
