@@ -1,10 +1,12 @@
 from rest_framework import serializers
 from .models import Lesson, LessonSession
 from users.serializers import UserSerializer, TeacherSerializer
+from users.models import User
 
 
 class LessonSerializer(serializers.ModelSerializer):
-    teacher = TeacherSerializer(many=True, required=True)
+    teacher = TeacherSerializer()
+    
     class Meta:
         model = Lesson
         fields = (
@@ -12,21 +14,18 @@ class LessonSerializer(serializers.ModelSerializer):
             'title',
             'price',
             'date',
-            'decription'
+            'description',
         )
-    
-    # def create(self, validate_data):
-    #     pass
+        
 
 class LessonSessionSerializer(serializers.ModelSerializer):
-    student = UserSerializer(many=True, required=True)
-    lesson = LessonSerializer(many=True, required=True)
+    student = UserSerializer()
+    lesson = LessonSerializer()
+
     class Meta:
         model = LessonSession
         fields = (
             'lesson',
             'student',
-            'status'
+            'status',
         )
-
-
