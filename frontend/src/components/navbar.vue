@@ -32,7 +32,6 @@
       <mdb-modal :show="login" @close="login = false" login>
         <mdb-modal-header class="mx-3 text-center">
           <mdb-modal-title tag="h3" bold class="w-100 my">Sign in</mdb-modal-title>
-          <loader v-if="loading" />
         </mdb-modal-header>
         <mdb-modal-body class="mx-3">
           <mdb-input label="Your email" type="email" class="mb-3 grey-text" />
@@ -77,7 +76,6 @@
 
 <script>
 import teachercards from "./teachercards";
-import loader from "./loader";
 import why from "./why_us";
 import guide from "./guide";
 import feedbacks from "./feedbacks";
@@ -114,7 +112,6 @@ export default {
     mdbNavbarToggler,
     mdbNavbarNav,
     //--------------------------------
-    loader,
     teachercards,
     why,
     guide,
