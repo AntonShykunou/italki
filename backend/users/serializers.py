@@ -33,6 +33,23 @@ class UserSerializer(serializers.ModelSerializer):
             'last_visit'
         )
 
+class UserUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = (
+            'email', 
+            'username', 
+            'birthday',
+            'gender',
+            'time_zone',
+            'photo',
+            'communication_tool', 
+            'introduction',
+            'native_languages', 
+            'learning_languages', 
+            'last_visit'
+        )
+
 
 class UserCreateSerializer(serializers.ModelSerializer):
     class Meta:
