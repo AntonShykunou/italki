@@ -6,7 +6,7 @@ from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.core.mail import send_mail
 from .validations import validate_birthday
-from locations.models import Country, City
+from locations.models import City
 from lessons.models import Lesson
 from languages.models import Language, LearningLanguage
 import pytz
@@ -107,7 +107,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     communication_tool = models.ManyToManyField(CommunicationTool, blank=True)
     introduction = models.TextField(blank=True)
     native_languages = models.ManyToManyField(Language)
-    learning_languages = models.ManyToManyField(LearningLanguage)
+    
+    # learning_languages = models.ManyToManyField(LearningLanguage)
     is_teacher = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     objects = UserManager()
