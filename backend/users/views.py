@@ -11,7 +11,7 @@ class UserViewSet(viewsets.ModelViewSet):
     def get_serializer_class(self):
         if self.action == 'create':
             return UserCreateSerializer
-        elif self.action == 'update':
+        elif 'update' in self.action:
             return UserUpdateSerializer
         else:
             return UserSerializer

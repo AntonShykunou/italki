@@ -49,7 +49,7 @@ class UserUpdateSerializer(serializers.ModelSerializer):
             'learning_languages', 
             'last_visit'
         )
-
+    
 
 class UserCreateSerializer(serializers.ModelSerializer):
     class Meta:
