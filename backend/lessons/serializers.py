@@ -5,7 +5,7 @@ from users.models import User
 
 
 class LessonSerializer(serializers.ModelSerializer):
-    teacher = TeacherSerializer()
+    teacher = TeacherSerializer(read_only=True)
     
     class Meta:
         model = Lesson
@@ -21,6 +21,7 @@ class LessonSerializer(serializers.ModelSerializer):
 class LessonSessionSerializer(serializers.ModelSerializer):
     student = UserSerializer()
     lesson = LessonSerializer()
+    status = serializers.CharField(source='get_status_display')
 
     class Meta:
         model = LessonSession
@@ -29,3 +30,6 @@ class LessonSessionSerializer(serializers.ModelSerializer):
             'student',
             'status',
         )
+
+    # def get_status(self, obj):
+    #     return obj.get_status_display()

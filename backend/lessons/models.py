@@ -20,7 +20,7 @@ class Lesson(models.Model):
 
 class LessonSession(models.Model):
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, related_name='lessonsessions')
-    student = models.ForeignKey(User, on_delete=models.CASCADE)
+    student = models.ForeignKey(User, on_delete=models.CASCADE, related_name='lessonsessions')
     status = models.CharField(max_length=1, choices=CHOICES_STATUS, default=0)
 
     def __str__(self):
