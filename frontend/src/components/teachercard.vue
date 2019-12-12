@@ -254,7 +254,7 @@ export default {
   }
 }
 .wrapper {
-  position: absolute;
+ position: absolute;
   top: 20%;
   left:25%;
   display: -webkit-box;
