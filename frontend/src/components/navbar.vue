@@ -2,13 +2,13 @@
   <div>
     <mdb-navbar dark class="navbar" position="top" style="width:100%;" scrolling>
       <a class="navbar-brand" href="#">
-        <img src="../assets/logo.png" width="100" height="60" alt="mdb logo" />
+        <img src="../assets/logo.png" width="100" height="60" alt="mdb logo" to="{ name: home}" />
       </a>
       <mdb-navbar-toggler>
         <mdb-navbar-nav right>
           <mdb-btn outline="light" darkWaves rounded @click.native="login = true">Sign in</mdb-btn>
           <mdb-btn outline="light" darkWaves rounded @click.native="register = true">Sign up</mdb-btn>
-          <mdb-btn outline="light" darkWaves rounded @click.native="register = true">Be a teacher</mdb-btn>
+          <mdb-btn outline="light" darkWaves rounded ><router-link :to="{ name: 'teachers'}">Be a teacher</router-link></mdb-btn>
         </mdb-navbar-nav>
       </mdb-navbar-toggler>
     </mdb-navbar>
@@ -32,7 +32,6 @@
       <mdb-modal :show="login" @close="login = false" login>
         <mdb-modal-header class="mx-3 text-center">
           <mdb-modal-title tag="h3" bold class="w-100 my">Sign in</mdb-modal-title>
-          <loader v-if="loading" />
         </mdb-modal-header>
         <mdb-modal-body class="mx-3">
           <mdb-input label="Your email" type="email" class="mb-3 grey-text" />
@@ -77,7 +76,6 @@
 
 <script>
 import teachercards from "./teachercards";
-import loader from "./loader";
 import why from "./why_us";
 import guide from "./guide";
 import feedbacks from "./feedbacks";
@@ -114,7 +112,6 @@ export default {
     mdbNavbarToggler,
     mdbNavbarNav,
     //--------------------------------
-    loader,
     teachercards,
     why,
     guide,

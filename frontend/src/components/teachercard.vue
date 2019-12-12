@@ -174,13 +174,13 @@ export default {
 .heart {
   position: absolute;
   top: 0;
-  left: 0;
+  left: -2em;
   cursor: pointer;
 }
 [id="toggle-heart"] {
   position: absolute;
   top: 11px;
-  left: 41em;
+  left: 35em;
 }
 [id="toggle-heart"]:checked + label {
   position: absolute;
@@ -254,6 +254,9 @@ export default {
   }
 }
 .wrapper {
+ position: absolute;
+  top: 20%;
+  left:25%;
   display: -webkit-box;
   margin-bottom: 20px;
   max-height: 320px;
