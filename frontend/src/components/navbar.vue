@@ -2,13 +2,13 @@
   <div>
     <mdb-navbar dark class="navbar" position="top" style="width:100%;" scrolling>
       <a class="navbar-brand" href="#">
-        <img src="../assets/logo.png" width="100" height="60" alt="mdb logo" />
+        <img src="../assets/logo.png" width="100" height="60" alt="mdb logo" to="{ name: home}" />
       </a>
       <mdb-navbar-toggler>
         <mdb-navbar-nav right>
           <mdb-btn outline="light" darkWaves rounded @click.native="login = true">Sign in</mdb-btn>
           <mdb-btn outline="light" darkWaves rounded @click.native="register = true">Sign up</mdb-btn>
-          <mdb-btn outline="light" darkWaves rounded @click.native="register = true">Be a teacher</mdb-btn>
+          <mdb-btn outline="light" darkWaves rounded ><router-link :to="{ name: 'teachers'}">Be a teacher</router-link></mdb-btn>
         </mdb-navbar-nav>
       </mdb-navbar-toggler>
     </mdb-navbar>
