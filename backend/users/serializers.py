@@ -26,10 +26,7 @@ class UserSerializer(serializers.ModelSerializer):
             'gender',
             'time_zone',
             'photo',
-            'communication_tool', 
             'introduction',
-            'native_languages', 
-            'learning_languages', 
             'last_visit'
         )
 
@@ -43,10 +40,7 @@ class UserUpdateSerializer(serializers.ModelSerializer):
             'gender',
             'time_zone',
             'photo',
-            'communication_tool', 
             'introduction',
-            'native_languages', 
-            'learning_languages', 
             'last_visit'
         )
     

@@ -1,5 +1,6 @@
 from django.db import models
 from .choices_languages import CHOICES_SKILLS, CHOISES_LANGUAGES
+from users.models import User
 
 
 def get_language_photo_path(instance, filename):
@@ -15,9 +16,13 @@ class Language(models.Model):
 
 
 class LearningLanguage(models.Model):
-    language = models.OneToOneField(Language, on_delete=models.CASCADE, null=True)
+    language = models.ForeignKey(Language, on_delete=models.CASCADE, null=True)
     skills = models.CharField(max_length=20, choices=CHOICES_SKILLS, blank=True)
 
     def __str__(self):
         return "{0} {1}".format(self.language, self.skills)
 
+
+class NativeLanguage(models.Model):
+    language = models.ForeignKey(Language, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)    
