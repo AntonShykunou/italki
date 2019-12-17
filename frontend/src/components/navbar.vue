@@ -1,14 +1,38 @@
 <template>
   <div>
-    <mdb-navbar dark class="navbar" position="top" style="width:100%;" scrolling>
+    <mdb-navbar
+      dark
+      class="navbar"
+      position="top"
+      style="width:100%;"
+      scrolling
+    >
       <a class="navbar-brand" href="#">
         <img src="../assets/logo.png" width="100" height="60" alt="mdb logo" />
       </a>
       <mdb-navbar-toggler>
         <mdb-navbar-nav right>
-          <mdb-btn outline="light" darkWaves rounded @click.native="login = true">Sign in</mdb-btn>
-          <mdb-btn outline="light" darkWaves rounded @click.native="register = true">Sign up</mdb-btn>
-          <mdb-btn outline="light" darkWaves rounded @click.native="register = true">Be a teacher</mdb-btn>
+          <mdb-btn
+            outline="light"
+            darkWaves
+            rounded
+            @click.native="login = true"
+            >Sign in</mdb-btn
+          >
+          <mdb-btn
+            outline="light"
+            darkWaves
+            rounded
+            @click.native="register = true"
+            >Sign up</mdb-btn
+          >
+          <mdb-btn
+            outline="light"
+            darkWaves
+            rounded
+            @click.native="register = true"
+            >Be a teacher</mdb-btn
+          >
         </mdb-navbar-nav>
       </mdb-navbar-toggler>
     </mdb-navbar>
@@ -31,23 +55,32 @@
     <mdb-container>
       <mdb-modal :show="login" @close="login = false" login>
         <mdb-modal-header class="mx-3 text-center">
-          <mdb-modal-title tag="h3" bold class="w-100 my">Sign in</mdb-modal-title>
-          <loader v-if="loading" />
+          <mdb-modal-title tag="h3" bold class="w-100 my"
+            >Sign in</mdb-modal-title
+          >
         </mdb-modal-header>
         <mdb-modal-body class="mx-3">
           <mdb-input label="Your email" type="email" class="mb-3 grey-text" />
-          <mdb-input label="Enter password" type="password" class="pb"></mdb-input>
+          <mdb-input
+            label="Enter password"
+            type="password"
+            class="pb"
+          ></mdb-input>
           <p class="font-small blue-text d-flex justify-content-end mb-3">
             <a class="ml-1">Forgot Password?</a>
           </p>
           <div class="text-center mb">
-            <mdb-btn color="deep-orange" class="btn" block rounded>Sign In</mdb-btn>
+            <mdb-btn color="deep-orange" class="btn" block rounded
+              >Sign In</mdb-btn
+            >
           </div>
         </mdb-modal-body>
         <mdb-modal-footer class="mx-3 pt-3 mb-1" end>
           <p class="font-small grey-text">
             Not a member?
-            <a @click.native="register = false" class="blue-text ml-1">Sign Up</a>
+            <a @click.native="register = false" class="blue-text ml-1"
+              >Sign Up</a
+            >
           </p>
         </mdb-modal-footer>
       </mdb-modal>
@@ -57,33 +90,37 @@
         </mdb-modal-header>
         <mdb-modal-body class="mx-3 grey-text">
           <mdb-input label="Your username" icon="user" class="mb-5" />
-          <mdb-input label="Your email" icon="envelope" type="email" class="mb-5" />
+          <mdb-input
+            label="Your email"
+            icon="envelope"
+            type="email"
+            class="mb-5"
+          />
           <mdb-input label="Your password" icon="lock" type="password" />
         </mdb-modal-body>
         <mdb-modal-footer center>
-          <mdb-btn @click.native="register = false" color="deep-orange">Sign Up</mdb-btn>
+          <mdb-btn @click.native="register = false" color="deep-orange"
+            >Sign Up</mdb-btn
+          >
         </mdb-modal-footer>
       </mdb-modal>
     </mdb-container>
     <teachercards />
-    <why/>
-    <guide/>
-    <feedbacks/>
-    <started/>
-    <foot/>
+    <why />
+    <guide />
+    <feedbacks />
+    <started />
+    <foot />
   </div>
 </template>
 
-
 <script>
 import teachercards from "./teachercards";
-import loader from "./loader";
 import why from "./why_us";
 import guide from "./guide";
 import feedbacks from "./feedbacks";
 import started from "./get_started";
 import foot from "./footer";
-
 
 import {
   mdbContainer,
@@ -96,7 +133,7 @@ import {
   mdbModalTitle,
   mdbNavbar,
   mdbNavbarToggler,
-  mdbNavbarNav,
+  mdbNavbarNav
 } from "mdbvue";
 
 export default {
@@ -114,7 +151,7 @@ export default {
     mdbNavbarToggler,
     mdbNavbarNav,
     //--------------------------------
-    loader,
+
     teachercards,
     why,
     guide,
@@ -125,14 +162,13 @@ export default {
   data() {
     return {
       login: false,
-      loading: true,
       register: false
     };
   }
 };
 </script>
 
-<style >
+<style>
 mdb-container {
   margin: 0;
   padding: 0;

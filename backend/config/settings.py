@@ -43,8 +43,9 @@ INSTALLED_APPS = [
     'lessons',
     'languages',
     'rest_framework',
-    'djoser',    
+    'djoser',
     'feedbacks',
+    'discussions',
 ]
 
 REST_FRAMEWORK = {
