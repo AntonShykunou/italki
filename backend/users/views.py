@@ -1,8 +1,10 @@
 from django.shortcuts import render
-from .models import User
-from .serializers import UserSerializer, UserCreateSerializer, UserUpdateSerializer
-from rest_framework import viewsets
+from .models import User, Teacher
+from .serializers import UserSerializer, UserCreateSerializer, UserUpdateSerializer, TeacherSerializer
+from rest_framework import viewsets,generics, mixins, views
 from rest_framework.response import Response
+from django_filters import rest_framework as filters
+from .pagination import StandardResultsSetPagination
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -15,3 +17,21 @@ class UserViewSet(viewsets.ModelViewSet):
             return UserUpdateSerializer
         else:
             return UserSerializer
+
+
+
+
+class TeacherViewSet(
+                     mixins.RetrieveModelMixin,
+                     mixins.UpdateModelMixin,
+                     mixins.DestroyModelMixin,
+                     mixins.ListModelMixin,
+                     viewsets.GenericViewSet):
+
+    queryset = Teacher.objects.all()\
+        .prefetch_related('user')\
+        .prefetch_related('user__native_languages')
+    serializer_class = TeacherSerializer
+    pagination_class = StandardResultsSetPagination
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_fields = ('user__native_languages__title',)

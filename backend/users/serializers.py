@@ -1,4 +1,4 @@
-from .models import User, CommunicationTool
+from .models import User, CommunicationTool, Teacher
 from languages.serializers import LanguageSerializer, LearningLanguageSerializer
 from rest_framework import serializers
 
@@ -69,3 +69,10 @@ class UserCreateSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         return User.objects.create_user(**validated_data)
     
+class TeacherSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
+    class Meta:
+        model = Teacher
+        fields = (
+            'user', 'video',
+        )

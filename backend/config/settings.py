@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'djoser',    
     'feedbacks',
+    'django_filters',
 ]
 
 REST_FRAMEWORK = {
