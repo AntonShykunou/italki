@@ -1,10 +1,11 @@
 from rest_framework import serializers
 from .models import Discussion, DiscussionComments, DiscussionReport
 from languages.serializers import LanguageSerializer
+from users.serializers import UserSerializer
 
 class DiscussionSerializer(serializers.ModelSerializer):
     language = LanguageSerializer()
-    #author = UserSerializer()
+    author = UserSerializer()
     class Meta:
         model = Discussion
         fields = (
@@ -16,7 +17,7 @@ class DiscussionSerializer(serializers.ModelSerializer):
         )
 
 class DiscussionCommentsSerializer(serializers.ModelSerializer):
-    #user = UserSerializer()
+    user = UserSerializer()
     discussion = DiscussionSerializer()
     class Meta:
         model = DiscussionComments
@@ -28,7 +29,7 @@ class DiscussionCommentsSerializer(serializers.ModelSerializer):
 
 class ReportSerializer(serializers.ModelSerializer):
     discussion = DiscussionSerializer()
-    #author = UserSerializer()
+    author = UserSerializer()
     class Meta:
         model = DiscussionReport
         fields = (
@@ -37,11 +38,11 @@ class ReportSerializer(serializers.ModelSerializer):
             'discussion',
         )
 
-class ViewsSerializer(serializers.ModelSerializer):
+'''class ViewsSerializer(serializers.ModelSerializer):
     discussion = DiscussionSerializer()
      class Meta:
         model = DiscussionReport
         fields = (
             'discussion',
             'amount',
-        )
+        )'''

@@ -26,6 +26,7 @@ class DiscussionReport(models.Model):
     author = models.ForeignKey(User, on_delete=models.SET_NULL,  null=True, related_name='discussionreport')
     text = models.TextField(blank=True)
 
-class ViewsIndicator(models.Model):
+'''class ViewsIndicator(models.Model):
     discussion = models.ForeignKey(Discussion, on_delete=models.SET_NULL, null=True, related_name='discussionreport')
     amount = models.IntegerField(null=True)
+'''
