@@ -5,14 +5,14 @@ from users.serializers import UserSerializer
 
 class DiscussionSerializer(serializers.ModelSerializer):
     language = LanguageSerializer()
-    author = UserSerializer()
+    user = UserSerializer()
     class Meta:
         model = Discussion
         fields = (
             'title',
             'detail',
             'language',
-            'author',
+            'user',
             'date'
         )
 
@@ -29,12 +29,12 @@ class DiscussionCommentsSerializer(serializers.ModelSerializer):
 
 class ReportSerializer(serializers.ModelSerializer):
     discussion = DiscussionSerializer()
-    author = UserSerializer()
+    user = UserSerializer()
     class Meta:
         model = DiscussionReport
         fields = (
             'text',
-            'author',
+            'user',
             'discussion',
         )
 

@@ -10,11 +10,8 @@ class Discussion(models.Model):
     title = models.TextField(blank=True)
     detail = models.TextField(blank=True)
     language = models.ForeignKey(Language, on_delete=models.SET_NULL, null=True, related_name='discussions')
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='discussions')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='discussions')
     date = models.DateTimeField(default=datetime.now)
-
-    def __str__(self):
-        return self.author
 
 class DiscussionComments(models.Model):
     text = models.TextField(blank=True)
@@ -23,7 +20,7 @@ class DiscussionComments(models.Model):
 
 class DiscussionReport(models.Model):
     discussion = models.ForeignKey(Discussion, on_delete=models.SET_NULL, null=True, related_name='discussionreport')
-    author = models.ForeignKey(User, on_delete=models.SET_NULL,  null=True, related_name='discussionreport')
+    user = models.ForeignKey(User, on_delete=models.SET_NULL,  null=True, related_name='discussionreport')
     text = models.TextField(blank=True)
 
 '''class ViewsIndicator(models.Model):
