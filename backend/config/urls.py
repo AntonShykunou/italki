@@ -21,7 +21,9 @@ from django.conf import settings
 apipatterns = [
     path('', include('languages.urls')),
     path('', include('feedbacks.urls')),
-    path('', include('users.urls'))
+    path('', include('users.urls')),
+    path('', include('discussions.urls')),
+    path('', include('referral_system')),
 ]
 
 urlpatterns = [
@@ -29,4 +31,4 @@ urlpatterns = [
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.jwt')),
     path('api/', include((apipatterns, 'api'), namespace='api'))
-] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
