@@ -1,22 +1,9 @@
 from .models import User, CommunicationTool
-from languages.serializers import LanguageSerializer, LearningLanguageSerializer
 from rest_framework import serializers
 
 
-class CommunicationToolSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = CommunicationTool
-        fields = (
-            'name',
-            'address' 
-        )
-
-
 class UserSerializer(serializers.ModelSerializer):
-    communication_tool = CommunicationToolSerializer(many=True, read_only=True)
-    native_languages = LanguageSerializer(many=True)
-    learning_languages = LearningLanguageSerializer(many=True)
-   
+    
     class Meta:
         model = User
         fields = (
@@ -28,6 +15,17 @@ class UserSerializer(serializers.ModelSerializer):
             'photo',
             'introduction',
             'last_visit'
+        )
+
+class CommunicationToolSerializer(serializers.ModelSerializer):
+    user = UserSerializer(many=True)
+    
+    class Meta:
+        model = CommunicationTool
+        fields = (
+            'name',
+            'address',
+            'user' 
         )
 
 class UserUpdateSerializer(serializers.ModelSerializer):
