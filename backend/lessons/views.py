@@ -6,6 +6,7 @@ from django.http import HttpResponse
 from rest_framework.generics import ListAPIView, RetrieveUpdateDestroyAPIView, UpdateAPIView, RetrieveAPIView
 from django_filters.rest_framework import DjangoFilterBackend
 from users.models import User, Teacher
+from users.serializers import UserSerializer
 from .serializers import LessonSerializer, LessonSessionSerializer
 from .filters import LessonSessionFilterSet
 from .choices import CHOICES_STATUS
@@ -13,8 +14,8 @@ from .models import Lesson, LessonSession
 from .permissions import IsApprovedStatus, IsDeclinedlStatus, IsFinishedlStatus
 from rest_framework.generics import get_object_or_404
 
+
 class LessonListView(ListAPIView):
-    # queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
 
     def get_queryset(self):
@@ -33,45 +34,70 @@ class LessonSessionView(ListAPIView):
     filter_backends = [DjangoFilterBackend]
     filter_class = LessonSessionFilterSet
 
+
 class LessonSessionDetailView(RetrieveAPIView):
     queryset = LessonSession.objects.all()
     serializer_class = LessonSessionSerializer
 
+
 class LessonSessionApprovedView(UpdateAPIView):
     queryset = LessonSession.objects.all()
     serializer_class = LessonSessionSerializer
-    permission_class = (IsApprovedStatus,)
-    
-    def get_object(self, pk):
-        try:
-            return LessonSession.objects.get(pk=pk)
-        except LessonSession.DoesNotExist:
-            raise Http404
+    permission_classes = [IsApprovedStatus]
 
-    def post(self, request, pk):
-        photo = self.get_object(pk)
-        serializer = UserSerializer(photo, data=request.DATA)
-        if serializer.is_valid():
+    def post(self,request, *args, **kwargs):
+        pk = self.kwargs.get('pk')
+        lessonsession = get_object_or_404(LessonSession.objects.all(), pk=pk)
+        self.check_object_permissions(self.request, lessonsession)
+        data = {
+            'status' : 'approved'
+        }
+        serializer = LessonSessionSerializer(instance=lessonsession,data=data,partial=True)
+
+        if serializer.is_valid():           
             serializer.save()
             return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        else:
+                return Response({"fail":"'{}'".format(serializer.errors)})
+
 
 class LessonSessionDeclinedView(UpdateAPIView):
     queryset = LessonSession.objects.all()
     serializer_class = LessonSessionSerializer
-    permission_class = (IsDeclinedlStatus,)
+    permission_classes  = [IsDeclinedlStatus]
+   
+    def post(self,request, *args, **kwargs):
+        pk = self.kwargs.get('pk')
+        lessonsession = get_object_or_404(LessonSession.objects.all(), pk=pk)
+        self.check_object_permissions(self.request, lessonsession)
+        data = {
+            'status' : 'declined'
+        }
+        serializer = LessonSessionSerializer(instance=lessonsession,data=data,partial=True)
 
-    def post(self, request, pk):
-        status = 'Declined'
-        LessonSession.objects.update(status=status)
-        return HttpResponse('Declined', status=201)
+        if serializer.is_valid():           
+            serializer.save()
+            return Response(serializer.data)
+        else:
+                return Response({"fail":"'{}'".format(serializer.errors)})
+
 
 class LessonSessionFinishedView(UpdateAPIView):
     queryset = LessonSession.objects.all()
     serializer_class = LessonSessionSerializer
-    permission_class = (IsFinishedlStatus,)
-
-    def post(self, request, pk):
-        status = 'finished'
-        LessonSession.objects.update(status=status)
-        return HttpResponse('Finished', status=201)
+    permission_classes = [IsFinishedlStatus]
+    
+    def post(self,request, *args, **kwargs):
+        pk = self.kwargs.get('pk')
+        lessonsession = get_object_or_404(LessonSession.objects.all(), pk=pk)
+        self.check_object_permissions(self.request, lessonsession)
+        data = {
+            'status' : 'finished'
+        }
+        serializer = LessonSessionSerializer(instance=lessonsession,data=data,partial=True)
+        if serializer.is_valid():           
+            serializer.save()
+            return Response(serializer.data)
+        else:
+                return Response({"fail":"'{}'".format(serializer.errors)})
+    

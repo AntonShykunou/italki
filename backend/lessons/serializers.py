@@ -21,7 +21,6 @@ class LessonSerializer(serializers.ModelSerializer):
 class LessonSessionSerializer(serializers.ModelSerializer):
     student = UserSerializer()
     lesson = LessonSerializer()
-    status = serializers.CharField(source='get_status_display')
 
     class Meta:
         model = LessonSession

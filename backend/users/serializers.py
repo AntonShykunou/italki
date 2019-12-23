@@ -3,6 +3,7 @@ from rest_framework import serializers
 
 
 class UserSerializer(serializers.ModelSerializer):
+    photo = serializers.ImageField(max_length=None, use_url=True)
     
     class Meta:
         model = User
@@ -29,6 +30,8 @@ class CommunicationToolSerializer(serializers.ModelSerializer):
         )
 
 class UserUpdateSerializer(serializers.ModelSerializer):
+    photo = serializers.ImageField(max_length=None, use_url=True)
+
     class Meta:
         model = User
         fields = (

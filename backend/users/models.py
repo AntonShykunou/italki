@@ -95,7 +95,9 @@ class User(AbstractBaseUser, PermissionsMixin):
         default='UTC'
     )
 
-    photo = models.ImageField(upload_to=get_user_photo_path, null=True, blank=True)
+    photo = models.ImageField(  upload_to=get_user_photo_path, null=True, blank=True, 
+                                default='/media/photos/no_photo/placeholder.png'
+                            )
     introduction = models.TextField(blank=True)
     is_teacher = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
