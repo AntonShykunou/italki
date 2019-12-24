@@ -2,12 +2,13 @@ from django.core.management.base import BaseCommand, CommandError
 from locations.models import City
 
 class Command(BaseCommand):
-    help = ''
+    help = 'Load cities in db'
 
     # def add_arguments(self, parser):
     #     parser.add_argument('poll_ids', nargs='+', type=int)
 
-    # def handle(self, *args, **options):
+    def handle(self, *args, **options):
+        pass
     #     for poll_id in options['poll_ids']:
     #         try:
     #             poll = Poll.objects.get(pk=poll_id)
