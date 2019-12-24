@@ -2,8 +2,9 @@ from rest_framework import status
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from django.http import HttpResponse
-# from rest_framework.mixins import ListModelMixin, CreateModelMixin, RetrieveModelMixin
-from rest_framework.generics import ListAPIView, RetrieveUpdateDestroyAPIView, UpdateAPIView, RetrieveAPIView
+from rest_framework.generics import (ListAPIView, RetrieveUpdateDestroyAPIView, 
+                                    UpdateAPIView, RetrieveAPIView
+                                    )
 from django_filters.rest_framework import DjangoFilterBackend
 from users.models import User, Teacher
 from users.serializers import UserSerializer
@@ -13,6 +14,7 @@ from .choices import CHOICES_STATUS
 from .models import Lesson, LessonSession
 from .permissions import IsApprovedStatus, IsDeclinedlStatus, IsFinishedlStatus
 from rest_framework.generics import get_object_or_404
+from .services import approve_lesson_session, decline_lesson_session, finish_lesson_session
 
 
 class LessonListView(ListAPIView):
@@ -40,7 +42,7 @@ class LessonSessionDetailView(RetrieveAPIView):
     serializer_class = LessonSessionSerializer
 
 
-class LessonSessionApprovedView(UpdateAPIView):
+class LessonSessionApproveView(UpdateAPIView):
     queryset = LessonSession.objects.all()
     serializer_class = LessonSessionSerializer
     permission_classes = [IsApprovedStatus]
@@ -49,19 +51,15 @@ class LessonSessionApprovedView(UpdateAPIView):
         pk = self.kwargs.get('pk')
         lessonsession = get_object_or_404(LessonSession.objects.all(), pk=pk)
         self.check_object_permissions(self.request, lessonsession)
-        data = {
-            'status' : 'approved'
-        }
-        serializer = LessonSessionSerializer(instance=lessonsession,data=data,partial=True)
-
+        serializer = approve_lesson_session(lessonsession)
         if serializer.is_valid():           
             serializer.save()
             return Response(serializer.data)
         else:
-                return Response({"fail":"'{}'".format(serializer.errors)})
+            return Response({"fail":"'{}'".format(serializer.errors)})
 
 
-class LessonSessionDeclinedView(UpdateAPIView):
+class LessonSessionDeclineView(UpdateAPIView):
     queryset = LessonSession.objects.all()
     serializer_class = LessonSessionSerializer
     permission_classes  = [IsDeclinedlStatus]
@@ -70,19 +68,15 @@ class LessonSessionDeclinedView(UpdateAPIView):
         pk = self.kwargs.get('pk')
         lessonsession = get_object_or_404(LessonSession.objects.all(), pk=pk)
         self.check_object_permissions(self.request, lessonsession)
-        data = {
-            'status' : 'declined'
-        }
-        serializer = LessonSessionSerializer(instance=lessonsession,data=data,partial=True)
-
+        serializer = decline_lesson_session(lessonsession)
         if serializer.is_valid():           
             serializer.save()
             return Response(serializer.data)
         else:
-                return Response({"fail":"'{}'".format(serializer.errors)})
+            return Response({"fail":"'{}'".format(serializer.errors)})
 
 
-class LessonSessionFinishedView(UpdateAPIView):
+class LessonSessionFinishView(UpdateAPIView):
     queryset = LessonSession.objects.all()
     serializer_class = LessonSessionSerializer
     permission_classes = [IsFinishedlStatus]
@@ -91,13 +85,10 @@ class LessonSessionFinishedView(UpdateAPIView):
         pk = self.kwargs.get('pk')
         lessonsession = get_object_or_404(LessonSession.objects.all(), pk=pk)
         self.check_object_permissions(self.request, lessonsession)
-        data = {
-            'status' : 'finished'
-        }
-        serializer = LessonSessionSerializer(instance=lessonsession,data=data,partial=True)
+        serializer = finish_lesson_session(lessonsession)
         if serializer.is_valid():           
             serializer.save()
             return Response(serializer.data)
         else:
-                return Response({"fail":"'{}'".format(serializer.errors)})
+            return Response({"fail":"'{}'".format(serializer.errors)})
     

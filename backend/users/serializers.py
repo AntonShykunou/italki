@@ -1,9 +1,10 @@
 from .models import User, CommunicationTool
 from rest_framework import serializers
-
+from locations.serializers import CitySerializer
 
 class UserSerializer(serializers.ModelSerializer):
     photo = serializers.ImageField(max_length=None, use_url=True)
+    city = CitySerializer()
     
     class Meta:
         model = User
@@ -13,6 +14,7 @@ class UserSerializer(serializers.ModelSerializer):
             'birthday',
             'gender',
             'time_zone',
+            'city',
             'photo',
             'introduction',
             'last_visit'
@@ -31,6 +33,7 @@ class CommunicationToolSerializer(serializers.ModelSerializer):
 
 class UserUpdateSerializer(serializers.ModelSerializer):
     photo = serializers.ImageField(max_length=None, use_url=True)
+    city = CitySerializer()
 
     class Meta:
         model = User
@@ -40,6 +43,7 @@ class UserUpdateSerializer(serializers.ModelSerializer):
             'birthday',
             'gender',
             'time_zone',
+            'city',
             'photo',
             'introduction',
             'last_visit'

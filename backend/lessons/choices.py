@@ -1,6 +1,11 @@
+PENDING_STATUS = 'pending'
+APPROVED_STATUS = 'approved'
+DECLINED_STATUS = 'declined'
+FINISHED_STATUS = 'finished'
+
 CHOICES_STATUS = (
-    ('pending', 'pending'),
-    ('approved', 'approved'),
-    ('declined', 'declined'),
-    ('finished', 'finished')
+    (PENDING_STATUS, 'pending'),
+    (APPROVED_STATUS, 'approved'),
+    (DECLINED_STATUS, 'declined'),
+    (FINISHED_STATUS, 'finished')
 )

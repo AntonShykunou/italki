@@ -6,7 +6,9 @@ from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.core.mail import send_mail
 from .validations import validate_birthday
+from locations.models import City
 import pytz
+
 
 
 def get_user_photo_path(instance, filename):
@@ -98,6 +100,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     photo = models.ImageField(  upload_to=get_user_photo_path, null=True, blank=True, 
                                 default='/media/photos/no_photo/placeholder.png'
                             )
+    city = models.ForeignKey(
+        to=City, on_delete=models.SET_NULL,
+        null=True, related_name="users"
+    )                        
     introduction = models.TextField(blank=True)
     is_teacher = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)

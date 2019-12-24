@@ -12,7 +12,7 @@ class LanguageSerializer(serializers.ModelSerializer):
 
 
 class LearningLanguageSerializer(serializers.ModelSerializer):
-    language = LanguageSerializer (many = False)
+    language = LanguageSerializer()
     
     class Meta:
         model = LearningLanguage
