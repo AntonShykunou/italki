@@ -13,7 +13,6 @@ class LessonSerializer(serializers.ModelSerializer):
             'teacher',
             'title',
             'price',
-            'date',
             'description'
         )
         

@@ -51,12 +51,8 @@ class LessonSessionApproveView(UpdateAPIView):
         pk = self.kwargs.get('pk')
         lessonsession = get_object_or_404(LessonSession.objects.all(), pk=pk)
         self.check_object_permissions(self.request, lessonsession)
-        serializer = approve_lesson_session(lessonsession)
-        if serializer.is_valid():           
-            serializer.save()
-            return Response(serializer.data)
-        else:
-            return Response({"fail":"'{}'".format(serializer.errors)})
+        approve_lesson_session(lessonsession)
+        return HttpResponse('Lesson session approved')
 
 
 class LessonSessionDeclineView(UpdateAPIView):
@@ -68,12 +64,8 @@ class LessonSessionDeclineView(UpdateAPIView):
         pk = self.kwargs.get('pk')
         lessonsession = get_object_or_404(LessonSession.objects.all(), pk=pk)
         self.check_object_permissions(self.request, lessonsession)
-        serializer = decline_lesson_session(lessonsession)
-        if serializer.is_valid():           
-            serializer.save()
-            return Response(serializer.data)
-        else:
-            return Response({"fail":"'{}'".format(serializer.errors)})
+        decline_lesson_session(lessonsession)
+        return HttpResponse('Lesson session declined')
 
 
 class LessonSessionFinishView(UpdateAPIView):
@@ -85,10 +77,6 @@ class LessonSessionFinishView(UpdateAPIView):
         pk = self.kwargs.get('pk')
         lessonsession = get_object_or_404(LessonSession.objects.all(), pk=pk)
         self.check_object_permissions(self.request, lessonsession)
-        serializer = finish_lesson_session(lessonsession)
-        if serializer.is_valid():           
-            serializer.save()
-            return Response(serializer.data)
-        else:
-            return Response({"fail":"'{}'".format(serializer.errors)})
+        finish_lesson_session(lessonsession)
+        return HttpResponse('Lesson session finished')
     

@@ -5,9 +5,8 @@ from datetime import datetime
 
 class Lesson(models.Model):
     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, null=True, related_name='lessons')
-    title = models.CharField(max_length=30,  blank=True)
+    title = models.CharField(max_length=30)
     price = models.DecimalField(max_digits=5, decimal_places=2, default=0.00)
-    date = models.DateField(default=datetime.now, blank=True)
     description = models.CharField(max_length=20, blank=True)
     
     def Meta():
