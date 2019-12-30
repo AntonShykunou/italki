@@ -10,3 +10,11 @@ router.register(r'', views.UserViewSet)
 urlpatterns = [
     path('users/', include(router.urls)),
 ]
+
+
+router = DefaultRouter()
+router.register(r'teachers', views.TeacherViewSet)
+
+app_name = "teachers"
+
+urlpatterns = router.urls
