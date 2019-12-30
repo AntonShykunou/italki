@@ -37,12 +37,3 @@ class ReportSerializer(serializers.ModelSerializer):
             'user',
             'discussion',
         )
-
-'''class ViewsSerializer(serializers.ModelSerializer):
-    discussion = DiscussionSerializer()
-     class Meta:
-        model = DiscussionReport
-        fields = (
-            'discussion',
-            'amount',
-        )'''
