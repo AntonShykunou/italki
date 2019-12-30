@@ -43,8 +43,9 @@ INSTALLED_APPS = [
     'lessons',
     'languages',
     'rest_framework',
-    'djoser',    
+    'djoser',
     'feedbacks',
+    'discussions',
 ]
 
 REST_FRAMEWORK = {
@@ -54,7 +55,7 @@ REST_FRAMEWORK = {
 }
 
 SIMPLE_JWT = {
-   'AUTH_HEADER_TYPES': ('JWT',),
+    'AUTH_HEADER_TYPES': ('JWT',),
 }
 
 MIDDLEWARE = [
@@ -95,10 +96,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'django_db',
-        'USER' : 'dev',
-        'PASSWORD' : 'admin',
-        'HOST' : '127.0.0.1',
-        'PORT' : '5432',
+        'USER': 'dev',
+        'PASSWORD': 'admin',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
     }
 }
 
@@ -140,7 +141,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-MEDIA_URL ='/media/'
+MEDIA_URL = '/media/'
 
 STATIC_URL = '/static/'
 
