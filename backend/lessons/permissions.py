@@ -1,19 +1,19 @@
 from rest_framework.permissions import BasePermission
 from .choices import PENDING_STATUS, APPROVED_STATUS
 
-class IsApprovedStatus(BasePermission):
+class CanApproveLessonSession(BasePermission):
 
     def has_object_permission(self, request, view, obj):
         return obj.status == PENDING_STATUS
     
 
-class IsDeclinedlStatus(BasePermission):
+class CanDeclinedLessonSession(BasePermission):
 
     def has_object_permission(self, request, view, obj):
         return obj.status == PENDING_STATUS
     
 
-class IsFinishedlStatus(BasePermission):
+class CanFinishLessonSession(BasePermission):
 
     def has_object_permission(self, request, view, obj):
         return obj.status == APPROVED_STATUS

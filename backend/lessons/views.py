@@ -12,7 +12,7 @@ from .serializers import LessonSerializer, LessonSessionSerializer
 from .filters import LessonSessionFilterSet
 from .choices import CHOICES_STATUS
 from .models import Lesson, LessonSession
-from .permissions import IsApprovedStatus, IsDeclinedlStatus, IsFinishedlStatus
+from .permissions import CanApproveLessonSession, CanDeclinedLessonSession, CanFinishLessonSession
 from rest_framework.generics import get_object_or_404
 from .services import approve_lesson_session, decline_lesson_session, finish_lesson_session
 
@@ -45,7 +45,7 @@ class LessonSessionDetailView(RetrieveAPIView):
 class LessonSessionApproveView(UpdateAPIView):
     queryset = LessonSession.objects.all()
     serializer_class = LessonSessionSerializer
-    permission_classes = [IsApprovedStatus]
+    permission_classes = [CanApproveLessonSession]
 
     def post(self,request, *args, **kwargs):
         pk = self.kwargs.get('pk')
@@ -58,7 +58,7 @@ class LessonSessionApproveView(UpdateAPIView):
 class LessonSessionDeclineView(UpdateAPIView):
     queryset = LessonSession.objects.all()
     serializer_class = LessonSessionSerializer
-    permission_classes  = [IsDeclinedlStatus]
+    permission_classes  = [CanDeclinedLessonSession]
    
     def post(self,request, *args, **kwargs):
         pk = self.kwargs.get('pk')
@@ -71,7 +71,7 @@ class LessonSessionDeclineView(UpdateAPIView):
 class LessonSessionFinishView(UpdateAPIView):
     queryset = LessonSession.objects.all()
     serializer_class = LessonSessionSerializer
-    permission_classes = [IsFinishedlStatus]
+    permission_classes = [CanFinishLessonSession]
     
     def post(self,request, *args, **kwargs):
         pk = self.kwargs.get('pk')

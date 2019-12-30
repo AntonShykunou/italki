@@ -20,16 +20,6 @@ class UserSerializer(serializers.ModelSerializer):
             'last_visit'
         )
 
-class CommunicationToolSerializer(serializers.ModelSerializer):
-    user = UserSerializer(many=True)
-    
-    class Meta:
-        model = CommunicationTool
-        fields = (
-            'name',
-            'address',
-            'user' 
-        )
 
 class UserUpdateSerializer(serializers.ModelSerializer):
     photo = serializers.ImageField(max_length=None, use_url=True)

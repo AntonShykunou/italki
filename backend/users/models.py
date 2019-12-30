@@ -105,6 +105,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         null=True, related_name="users"
     )                        
     introduction = models.TextField(blank=True)
+    native_languages = models.ManyToManyField()
     is_teacher = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     objects = UserManager()
