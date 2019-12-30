@@ -1,4 +1,4 @@
-from django.config import settings
+from django.conf import settings
 
 
 DJANGO_REFERRALS_SETTINGS = {

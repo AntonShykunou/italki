@@ -10,7 +10,7 @@ class ReferralHitManager(models.Manager):
 
 class ReferralLink(models.Model):
 	identifier = models.CharField(max_length=50, blank=True, unique=True)
-	user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+	user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
 	disabled = models.BooleanField(default=False)
 
 	created = models.DateTimeField(auto_now_add=True)
@@ -29,7 +29,7 @@ class ReferralHit(models.Model):
 	authenticated = models.BooleanField(
 		help_text="Whether the hit was created by an authenticated user."
 	)
-	hit_user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True
+	hit_user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True
 	)
 	ip = models.GenericIPAddressField(help_text="IP address at hit time")
 	user_agent = models.TextField(blank=True, help_text="User-Agent at hit time")
