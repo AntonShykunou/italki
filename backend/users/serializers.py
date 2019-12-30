@@ -74,5 +74,5 @@ class TeacherSerializer(serializers.ModelSerializer):
     class Meta:
         model = Teacher
         fields = (
-            'user', 'video',
+            'user', 'video', 'id'
         )

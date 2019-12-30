@@ -27,6 +27,11 @@ SECRET_KEY = 'm1mhslj0$$jp_z4lyxz7ki&!%7b*hr-@l9*)n1k2jesn6z(wcy'
 DEBUG = True
 
 ALLOWED_HOSTS = []
+INTERNAL_IPS = [
+    '0.0.0.0',
+    '127.0.0.1',
+    'localhost',
+]
 
 
 # Application definition
@@ -46,6 +51,7 @@ INSTALLED_APPS = [
     'djoser',    
     'feedbacks',
     'django_filters',
+    'debug_toolbar',
 ]
 
 REST_FRAMEWORK = {
@@ -59,6 +65,7 @@ SIMPLE_JWT = {
 }
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
