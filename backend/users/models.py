@@ -1,13 +1,13 @@
 from django.db import models
-import datetime
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.core.mail import send_mail
-from .validations import validate_birthday
+from languages.models import Language
 from locations.models import City
-import pytz
+from .validations import validate_birthday
+import pytz, datetime
 
 
 
@@ -105,7 +105,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         null=True, related_name="users"
     )                        
     introduction = models.TextField(blank=True)
-    native_languages = models.ManyToManyField()
+    native_languages = models.ManyToManyField(Language)
     is_teacher = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     objects = UserManager()

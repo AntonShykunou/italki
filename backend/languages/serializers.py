@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Language, LearningLanguage, NativeLanguage
+from .models import Language, LearningLanguage
 from users.serializers import UserSerializer
 
 class LanguageSerializer(serializers.ModelSerializer):
@@ -19,15 +19,4 @@ class LearningLanguageSerializer(serializers.ModelSerializer):
         fields = (
             'language',
             'skills',
-        )
-
-class NativeLanguageSerializer(serializers.ModelSerializer):
-    language = LanguageSerializer()
-    user = UserSerializer()
-    
-    class Meta:
-        model = NativeLanguage
-        field = (
-            'language',
-            'user'
         )
