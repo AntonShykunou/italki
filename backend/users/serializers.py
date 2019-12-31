@@ -1,22 +1,11 @@
 from .models import User, CommunicationTool
-from languages.serializers import LanguageSerializer, LearningLanguageSerializer
 from rest_framework import serializers
-
-
-class CommunicationToolSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = CommunicationTool
-        fields = (
-            'name',
-            'address' 
-        )
-
+from locations.serializers import CitySerializer
 
 class UserSerializer(serializers.ModelSerializer):
-    communication_tool = CommunicationToolSerializer(many=True, read_only=True)
-    native_languages = LanguageSerializer(many=True)
-    learning_languages = LearningLanguageSerializer(many=True)
-   
+    photo = serializers.ImageField(max_length=None, use_url=True)
+    city = CitySerializer()
+    
     class Meta:
         model = User
         fields = (
@@ -25,15 +14,17 @@ class UserSerializer(serializers.ModelSerializer):
             'birthday',
             'gender',
             'time_zone',
+            'city',
             'photo',
-            'communication_tool', 
             'introduction',
-            'native_languages', 
-            'learning_languages', 
             'last_visit'
         )
 
+
 class UserUpdateSerializer(serializers.ModelSerializer):
+    photo = serializers.ImageField(max_length=None, use_url=True)
+    city = CitySerializer()
+
     class Meta:
         model = User
         fields = (
@@ -42,11 +33,9 @@ class UserUpdateSerializer(serializers.ModelSerializer):
             'birthday',
             'gender',
             'time_zone',
+            'city',
             'photo',
-            'communication_tool', 
             'introduction',
-            'native_languages', 
-            'learning_languages', 
             'last_visit'
         )
     

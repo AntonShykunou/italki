@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Language, LearningLanguage
+from users.serializers import UserSerializer
 
 class LanguageSerializer(serializers.ModelSerializer):
     class Meta:
@@ -11,7 +12,7 @@ class LanguageSerializer(serializers.ModelSerializer):
 
 
 class LearningLanguageSerializer(serializers.ModelSerializer):
-    language = LanguageSerializer (many = False)
+    language = LanguageSerializer()
     
     class Meta:
         model = LearningLanguage
