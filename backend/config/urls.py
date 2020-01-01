@@ -21,7 +21,8 @@ from django.conf import settings
 apipatterns = [
     path('', include('languages.urls')),
     path('', include('feedbacks.urls')),
-    path('', include('users.urls'))
+    path('', include('users.urls')),
+    path('', include('lessons.urls'))
 ]
 
 urlpatterns = [

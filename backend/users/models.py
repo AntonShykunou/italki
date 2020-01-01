@@ -1,15 +1,14 @@
 from django.db import models
-import datetime
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.core.mail import send_mail
+from languages.models import Language
+from locations.models import City
 from .validations import validate_birthday
-from locations.models import Country, City
-from lessons.models import Lesson
-from languages.models import Language, LearningLanguage
-import pytz
+import pytz, datetime
+
 
 
 def get_user_photo_path(instance, filename):
@@ -70,11 +69,6 @@ class UserManager(BaseUserManager):
         )
 
 
-class CommunicationTool(models.Model):
-    name = models.CharField(max_length=20, blank=True)
-    address = models.CharField(max_length=20, blank=True)
-
-
 class User(AbstractBaseUser, PermissionsMixin):
 
     GENDER_CHOICES = (
@@ -103,11 +97,15 @@ class User(AbstractBaseUser, PermissionsMixin):
         default='UTC'
     )
 
-    photo = models.ImageField(upload_to=get_user_photo_path, null=True, blank=True)
-    communication_tool = models.ManyToManyField(CommunicationTool, blank=True)
+    photo = models.ImageField(  upload_to=get_user_photo_path, null=True, blank=True, 
+                                default='/media/photos/no_photo/placeholder.png'
+                            )
+    city = models.ForeignKey(
+        to=City, on_delete=models.SET_NULL,
+        null=True, related_name="users"
+    )                        
     introduction = models.TextField(blank=True)
     native_languages = models.ManyToManyField(Language)
-    learning_languages = models.ManyToManyField(LearningLanguage)
     is_teacher = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     objects = UserManager()
@@ -135,6 +133,11 @@ class Teacher(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='teacher_profile')
     video = models.URLField(blank=True)
 
+
+class CommunicationTool(models.Model):
+    name = models.CharField(max_length=20, blank=True)
+    address = models.CharField(max_length=20, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 @receiver(post_save, sender=User)
 def create_user(sender, instance, created, **kwargs):
