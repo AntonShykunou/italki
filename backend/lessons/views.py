@@ -22,7 +22,7 @@ class LessonListView(ListAPIView):
 
     def get_queryset(self):
         id = self.kwargs['id']
-        return Lesson.objects.filter(teacher=id).all()
+        return Lesson.objects.filter(teacher=id)
 
 
 class LessonRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
