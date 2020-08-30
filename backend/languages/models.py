@@ -7,7 +7,7 @@ def get_language_photo_path(instance, filename):
 
 
 class Language(models.Model):
-    title = models.CharField(max_length=30, choices=CHOISES_LANGUAGES, blank=True)
+    title = models.CharField(max_length=30, choices=CHOISES_LANGUAGES)
     photo = models.ImageField(upload_to=get_language_photo_path, null=True, blank=True)
 
     def __str__(self):
@@ -15,7 +15,7 @@ class Language(models.Model):
 
 
 class LearningLanguage(models.Model):
-    language = models.ForeignKey(Language, on_delete=models.CASCADE, null=True)
+    language = models.ForeignKey(Language, on_delete=models.CASCADE)
     skills = models.CharField(max_length=20, choices=CHOICES_SKILLS, blank=True)
 
     def __str__(self):
